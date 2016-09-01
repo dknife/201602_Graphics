@@ -1,0 +1,6 @@
+\frametitle{깊이 버퍼와 이중 버퍼 사용 결과}
+
+\begin{figure}
+    \includegraphics[height=7cm]{OGL_opengl/ZBuff.png}
+\end{figure}
+
