@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Ex02_02_Circles", "Ex02_02_Circles\Ex02_02_Circles.vcxproj", "{64A44D9C-A150-4C8F-870B-C3D0E04923A4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{64A44D9C-A150-4C8F-870B-C3D0E04923A4}.Debug|Win32.ActiveCfg = Debug|Win32
+		{64A44D9C-A150-4C8F-870B-C3D0E04923A4}.Debug|Win32.Build.0 = Debug|Win32
+		{64A44D9C-A150-4C8F-870B-C3D0E04923A4}.Release|Win32.ActiveCfg = Release|Win32
+		{64A44D9C-A150-4C8F-870B-C3D0E04923A4}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
