@@ -6,7 +6,7 @@
 void display() {
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glPointSize(5);	
+	glPointSize(8);	
 	glBegin(GL_POINTS);	
 	
 	for (float x = -1.0; x <= 1.0; x += 0.01) {
