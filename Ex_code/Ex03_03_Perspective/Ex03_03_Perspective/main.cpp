@@ -4,7 +4,7 @@
 #include <math.h>
 
 // parameters for camera lens
-float range = 1.0;
+float fovY = 60;
 float aspRatio = 1.0;
 float dX = 0.0;
 
@@ -12,7 +12,7 @@ void SetCamera() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//glOrtho(-aspRatio * range + dX, aspRatio * range + dX, -range, range, -2, 2);
-	gluPerspective(60, aspRatio, 0.1, 1000);
+	gluPerspective(fovY, aspRatio, 0.1, 1000);
 }
 
 void reshape(int w, int h) {
@@ -22,8 +22,8 @@ void reshape(int w, int h) {
 }
 
 void keyboard(unsigned char c, int, int) {
-	if (c == 'w') range *= 0.9;
-	if (c == 's') range *= 1.1;
+	if (c == 'w') fovY *= 0.99;
+	if (c == 's') fovY *= 1.01;
 	if (c == 'a') dX -= 0.1;
 	if (c == 'd') dX += 0.1;
 	SetCamera();
