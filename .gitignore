@@ -1,3 +1,10 @@
+# visual studio files
+*.opensdf
+*.sdf
+*.pdb
+*.ilk
+*.log
+
 # Compiled Object files
 *.slo
 *.lo
