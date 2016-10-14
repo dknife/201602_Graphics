@@ -59,6 +59,10 @@ void display() {
 	static float earthAngle = 0.0;
 	static float earthSpin = 0.0;
 	static float moonAngle = 0.0;
+	static float jupiterAngle = 0.0;
+	static float jupiterSpin = 0.0;
+	static float jMoon1Angle = 0.0;
+	static float jMoon2Angle = 0.0;
 
 	// sun
 	glColor3f(1.0, 0.3, 0.3);
@@ -92,10 +96,32 @@ void display() {
 	glPopMatrix();
 
 	// Jupiter
-	glColor3f(1.0, 0.5, 0.2);
-	glTranslatef(6, 0, 0);
-	drawSphere(0.6);
+	glPushMatrix();
+		glColor3f(1.0, 0.5, 0.2);
+		glRotatef(jupiterAngle, 0, 1, 0); jupiterAngle += 0.7;
+		glTranslatef(6, 0, 0);
+		glPushMatrix();
+			glRotatef(jupiterSpin, 0, 1, 0); jupiterSpin += 5.1;
+			drawSphere(0.6);
+		glPopMatrix();
 
+		// jMoon 1
+		glPushMatrix();
+			glColor3f(1, 1, 0);
+			glRotatef(jMoon1Angle, 0, 1, 0); jMoon1Angle += 20.32;
+			glTranslatef(1.0, 0.0, 0.0);
+			drawSphere(0.1);
+		glPopMatrix();
+
+		// jMoon 2
+		glPushMatrix();
+			glColor3f(1, 1, 0);
+			glRotatef(jMoon2Angle, 1, 0, 0); jMoon2Angle += 5.32;
+			glTranslatef(0.0, 1.0, 0.0);
+			drawSphere(0.1);
+		glPopMatrix();
+
+	glPopMatrix();
 
 	glutSwapBuffers();
 
