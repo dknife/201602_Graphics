@@ -4,9 +4,25 @@
 #include <math.h>
 
 bool bPers = true;
-
 // parameters for camera lens
 float aspRatio = 1.0;
+
+//light parameters
+GLfloat lit_diffuse[] = { 1.0, 0.0, 0.0, 1.0 };
+GLfloat lit_position[] = { 5, 5, 0, 1 };
+// material parameters
+GLfloat mat_diffuse[] = {1.0, 1.0, 0.5, 1.0};
+
+void SetLighting(void) {
+	glMaterialfv(GL_FRONT, GL_DIFFUSE, mat_diffuse);
+	glLightfv(GL_LIGHT0, GL_DIFFUSE, lit_diffuse);
+	
+}
+
+void SetLightPosition(void) {
+	glLightfv(GL_LIGHT0, GL_POSITION, lit_position);
+}
+
 
 void SetCamera() {
 	glMatrixMode(GL_PROJECTION);
@@ -57,7 +73,11 @@ void display() {
 	// world
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(0, 3, 3, 0, 0, 0, 0, 1, 0);
+	static float angle = 0;
+	gluLookAt(2.0*cos(angle), 3, 2.0*sin(angle), 0, 0, 0, 0, 1, 0);
+	angle += 0.01;
+
+	SetLightPosition();
 
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -69,10 +89,25 @@ void display() {
 	// draw plane
 	drawPlane(20, 0.5);
 
-	
+	glEnable(GL_LIGHTING);
+	// draw Teapot
+	glutSolidTeapot(1.0);
+
+	glDisable(GL_LIGHTING);
 
 	glutSwapBuffers();
 
+}
+
+
+void init(void) {
+	glClearColor(0, 0, 0, 1);
+	glEnable(GL_DEPTH_TEST);
+
+	// light enable
+	glEnable(GL_LIGHTING);
+	glEnable(GL_LIGHT0);
+	SetLighting();
 }
 
 int main(int argc, char **argv) {
@@ -86,8 +121,7 @@ int main(int argc, char **argv) {
 	glutReshapeFunc(reshape);
 	glutKeyboardFunc(keyboard);
 
-	glClearColor(0, 0, 0, 1);
-	glEnable(GL_DEPTH_TEST);
+	init();
 
 
 	glutMainLoop();
