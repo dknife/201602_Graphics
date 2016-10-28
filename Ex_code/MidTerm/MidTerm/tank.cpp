@@ -3,7 +3,7 @@
 #include <gl/glut.h>
 #include <math.h>
 
-#define CarWidth 3.0
+#define CarWidth 8.0
 #define CarLength 8.0
 #define CarHeight 1.0
 #define WheelRadius 1.5
@@ -11,7 +11,7 @@
 #define TurretHeight 2.0
 #define TurretLength 3.0
 #define BarrelWidth 0.5
-#define BarrelLength 10.0
+#define BarrelLength 5.0
 
 
 float carZ = 0.0;
@@ -22,7 +22,7 @@ bool bPers = true;
 
 // parameters for camera lens
 float aspRatio = 1.0;
-float armY = 0, armZ = 0, handZ = 0;
+
 void SetCamera() {
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
