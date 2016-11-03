@@ -10,6 +10,7 @@ struct Vector3f {
 void BallSet(float x, float y, float z, float vx, float vy, float vz);
 void BallMove(void);
 void BallDraw(void);
+Vector3f GetBallPosition(void);
 
 
 #endif

@@ -4,6 +4,7 @@
 #include "BackgroundMgr.h"
 #include "Ball.h"
 #include "myPannel.h"
+#include "enemyPannel.h"
 
 #include <stdio.h>
 #include <math.h>
@@ -71,8 +72,14 @@ void display() {
 	BallMove();
 	BallDraw();
 
-	
+	// enemy Move....
+	Vector3f ball = GetBallPosition();
+	float dx = ball.x - GetEnemyX();
+	float dy = ball.y - GetEnemyY();
+	EnemyMove(dx*0.1, dy*0.1);
+
 	PannelDraw();
+	EnemyDraw();
 
 	glDisable(GL_LIGHTING);
 

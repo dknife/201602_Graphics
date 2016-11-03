@@ -43,7 +43,9 @@ void BallMove(void) {
 		float dy = pannelY - ballPosition.y;
 		float dist = sqrt(dx*dx + dy*dy);
 		if (dist < 0.6) ballVelocity.z *= -1.0;
-		else exit(1);
+		else  {
+			BallSet(0, 0, 0, ballVelocity.x, ballVelocity.y, ballVelocity.z);
+		}
 	}
 
 }
@@ -54,4 +56,8 @@ void BallDraw(void) {
 	glutSolidSphere(0.1, 30, 30);
 	glPopMatrix();
 
+}
+
+Vector3f GetBallPosition(void) {
+	return ballPosition;
 }
