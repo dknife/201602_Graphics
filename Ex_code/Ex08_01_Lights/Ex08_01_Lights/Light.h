@@ -8,6 +8,6 @@
 
 void SetMaterial(float r, float g, float b);
 void SetLight(float r, float g, float b);
-void SetLightPosition(float x, float y, float z);
+void SetLightPosition(float pos[]);
 
 #endif

@@ -16,8 +16,7 @@ void SetLight(float r, float g, float b) {
 	
 }
 
-void SetLightPosition(float x, float y, float z) {
-	GLfloat pos[] = { x, y, z, 1.0 };
+void SetLightPosition(float pos[]) {
 	glLightfv(GL_LIGHT0, GL_POSITION, pos);
 
 }

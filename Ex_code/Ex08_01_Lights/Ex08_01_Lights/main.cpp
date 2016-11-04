@@ -7,6 +7,18 @@
 #include "Light.h"
 
 #include <math.h>
+#include <stdlib.h>
+
+GLfloat lightPos[] = { 0, 1, 0, 1 };
+
+void keyboard(unsigned char c, int x, int y) {
+	switch (c) {
+	case 27: exit(0);
+	case 'a': lightPos[0] -= 0.05; break;
+	case 'd': lightPos[0] += 0.05; break;
+	}
+	glutPostRedisplay();
+}
 
 void reshape(int w, int h) {
 	float asp = float(w) / h;
@@ -19,17 +31,19 @@ void display(void) {
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	static float angle = 0.0;
-	setCameraPosition(cos(angle), 1.5, sin(angle));
-	angle += 0.01;
-
-	SetLightPosition(1, 1, 1);
+	setCameraPosition(1.5, 1.5, 1.5);
+	
+	SetLightPosition(lightPos);
 
 	glEnable(GL_LIGHTING);
 	glEnable(GL_LIGHT0);
+	srand(0);
 	for (float x = -1.0; x <= 1.0; x += 0.1) {
 		for (float z = -1.0; z <= 1.0; z += 0.1) {
-			glPushMatrix();
+			glColor3f((rand()%1001)/1000.0,
+				(rand() % 1001) / 1000.0,
+				(rand() % 1001) / 1000.0);
+			glPushMatrix();			
 			glTranslatef(x, 0, z);
 			glutSolidTeapot(0.1);
 			glPopMatrix();
@@ -42,6 +56,7 @@ void display(void) {
 void init() {
 	glClearColor(0, 0, 0, 1);
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_COLOR_MATERIAL);
 	SetMaterial(1.0, 1.0, 0.0);
 	SetLight(1.0, 1.0, 1.0);	
 }
@@ -59,6 +74,7 @@ int main(int argc, char **argv) {
 	// callback registration
 	glutReshapeFunc(reshape);
 	glutDisplayFunc(display);
+	glutKeyboardFunc(keyboard);
 	glutIdleFunc(display);
 
 	// enter mainloop
