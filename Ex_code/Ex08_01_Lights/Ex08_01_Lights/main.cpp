@@ -10,12 +10,15 @@
 #include <stdlib.h>
 
 GLfloat lightPos[] = { 0, 1, 0, 1 };
+bool bSpot = false;
 
 void keyboard(unsigned char c, int x, int y) {
 	switch (c) {
 	case 27: exit(0);
-	case 'a': lightPos[0] -= 0.05; break;
-	case 'd': lightPos[0] += 0.05; break;
+	case 'a': lightPos[0] -= 0.05; SetSpot(bSpot, 20.0);  break;
+	case 'd': lightPos[0] += 0.05; SetSpot(bSpot, 20.0);  break;
+	case 's': bSpot = bSpot ? false : true; 
+		SetSpot(bSpot, 20.0); break;
 	}
 	glutPostRedisplay();
 }
