@@ -1,14 +1,14 @@
 #include <stdio.h>
 
-#include "vector2f.h"
+#include "vector3f.h"
 
 int main(void) {
 	
-	vector2f v1, v2, v3;
-	setVector2f(&v1, 0, 0);
-	setVector2f(&v2, 1, 0);
-	setVector2f(&v3, 1, 1);
-	float A = area2D(v1, v2, v3);
+	vector3f p1, p2, p3;
+	setVector3f(&p1, 0, 0, 0);
+	setVector3f(&p2, 1, 0, 0);
+	setVector3f(&p3, 1, 1, 0);
+	float A = area3D(p1, p2, p3);
 	printf("area = %f\n", A);
 
 
