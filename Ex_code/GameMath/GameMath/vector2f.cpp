@@ -23,3 +23,7 @@ void subVector2f(vector2f *res, vector2f v1, vector2f v2) {
 float dotProduct(vector2f v1, vector2f v2) {
 	return v1.x*v2.x + v1.y*v2.y;
 }
+
+float crossProduct(vector2f v1, vector2f v2) {
+	return v1.x*v2.y - v1.y*v2.x;
+}
