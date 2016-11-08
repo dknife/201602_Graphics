@@ -13,6 +13,8 @@ void printVector3f(vector3f v);
 void addVector3f(vector3f *res, vector3f v1, vector3f v2);
 void subVector3f(vector3f *res, vector3f v1, vector3f v2);
 float dotProduct(vector3f v1, vector3f v2);
+float length(vector3f v);
+void normalize(vector3f *v);
 void  crossProduct(vector3f *res, vector3f v1, vector3f v2);
 float area3D(vector3f v1, vector3f v2, vector3f v3);
 

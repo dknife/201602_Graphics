@@ -1,15 +1,16 @@
 #include <stdio.h>
-
+#include "vector2f.h"
 #include "vector3f.h"
 
 int main(void) {
 	
-	vector3f p1, p2, p3;
-	setVector3f(&p1, 0, 0, 0);
-	setVector3f(&p2, 1, 0, 0);
-	setVector3f(&p3, 1, 1, 0);
-	float A = area3D(p1, p2, p3);
-	printf("area = %f\n", A);
+	vector3f v;
+	setVector3f(&v, 1, 1, 1);
+
+	normalize(&v);
+	printVector3f(v);
+
+	printf("length of normalized vector = %f\n", length(v));
 
 
 	return 1;
