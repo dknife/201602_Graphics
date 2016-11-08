@@ -27,3 +27,11 @@ float dotProduct(vector2f v1, vector2f v2) {
 float crossProduct(vector2f v1, vector2f v2) {
 	return v1.x*v2.y - v1.y*v2.x;
 }
+
+float area2D(vector2f v1, vector2f v2, vector2f v3) {
+	vector2f u, v;
+	subVector2f(&u, v2, v1);
+	subVector2f(&v, v3, v1);
+	float area = crossProduct(u, v);
+	return area/2.0;
+}

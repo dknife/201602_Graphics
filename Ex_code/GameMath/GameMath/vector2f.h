@@ -13,5 +13,6 @@ void addVector2f(vector2f *res, vector2f v1, vector2f v2);
 void subVector2f(vector2f *res, vector2f v1, vector2f v2);
 float dotProduct(vector2f v1, vector2f v2);
 float crossProduct(vector2f v1, vector2f v2);
+float area2D(vector2f v1, vector2f v2, vector2f v3);
 
 #endif
