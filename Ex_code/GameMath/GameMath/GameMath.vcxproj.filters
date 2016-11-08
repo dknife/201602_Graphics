@@ -21,9 +21,15 @@
     <ClCompile Include="vector2f.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="vector3f.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="vector2f.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="vector3f.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
