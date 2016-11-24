@@ -3,10 +3,22 @@
 #include <gl/glut.h>
 #include <math.h>
 
+#define GRIDX 10
+#define GRIDY 10
+float heightMap[GRIDX][GRIDY];
 
-float heightMap[10][10];
-void GenerateHeightMap(int w, int h);
-void ShowHeightMap(int w, int h);
+
+void Cross(float *u, float *v, float *cross) {
+	cross[0] = u[1] * v[2] - u[2] * v[1];
+	cross[1] = u[2] * v[0] - u[0] * v[2];
+	cross[2] = u[0] * v[1] - u[1] * v[0];
+	float len = sqrt(cross[0] * cross[0] + cross[1] * cross[1] + cross[2] * cross[2]);
+	if (len > 0) {
+		cross[0] /= len;
+		cross[1] /= len;
+		cross[2] /= len;
+	}
+}
 
 void GenerateHeightMap(int w, int h) {
 	for (int i = 0; i < w; i++) {
@@ -17,13 +29,39 @@ void GenerateHeightMap(int w, int h) {
 }
 
 void ShowHeightMap(int w, int h) {
-	glBegin(GL_POINTS);
+	float u[3], v[3], cross[3];
+
+	glBegin(GL_TRIANGLES);
 	for (int i = 0; i < w - 1; i++) {
 		for (int j = 0; j < h - 1; j++) {
+			// FACE 1
+			u[0] = 0; 
+			u[1] = heightMap[i][j + 1] - heightMap[i][j]; 
+			u[2] = 1;
+			v[0] = 1;
+			v[1] = heightMap[i+1][j + 1] - heightMap[i][j];
+			v[2] = 0;
+			Cross(u, v, cross);
+			glNormal3fv(cross);
 			glVertex3f(i, heightMap[i][j], j);
+			glVertex3f(i, heightMap[i][j+1], j+1);
+			glVertex3f(i+1, heightMap[i+1][j], j);
+			// FACE 2
+			u[0] = -1;
+			u[1] = heightMap[i][j + 1] - heightMap[i+1][j];
+			u[2] = 1;
+			v[0] = 0;
+			v[1] = heightMap[i+1][j + 1] - heightMap[i+1][j];
+			v[2] = 1;
+			Cross(u, v, cross);
+			glVertex3f(i+1, heightMap[i + 1][j], j);
+			glVertex3f(i, heightMap[i][j + 1], j + 1);
+			glVertex3f(i+1, heightMap[i+1][j + 1], j + 1);
+			
 		}
 	}
 	glEnd();
+	
 }
 
 bool bPers = true;
@@ -115,7 +153,7 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 
-	gluLookAt(20, 20, 20, 0, 0, 0, 0, 1, 0);
+	gluLookAt(GRIDX, GRIDX, GRIDY, 0, 0, 0, 0, 1, 0);
 
 	static float angle = 0;
 	angle += 0.01;
@@ -142,7 +180,7 @@ void display() {
 	
 
 	glPointSize(4);
-	ShowHeightMap(10, 10);
+	ShowHeightMap(GRIDX, GRIDY);
 
 	glDisable(GL_LIGHTING);
 
@@ -160,7 +198,7 @@ void init(void) {
 	glEnable(GL_LIGHT0);
 	glEnable(GL_LIGHT1);
 	SetLighting();
-	GenerateHeightMap(10,10);
+	GenerateHeightMap(GRIDX, GRIDY);
 }
 
 int main(int argc, char **argv) {
