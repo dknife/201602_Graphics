@@ -92,7 +92,7 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	static float angle = 0;
-	gluLookAt(200.0*cos(angle), 3, 200.0*sin(angle), 0, 0, 0, 0, 1, 0);
+	gluLookAt(100.0*cos(angle), 50, 100.0*sin(angle), 0, 50, 0, 0, 1, 0);
 	angle += 0.01;
 
 	SetLightPosition();
@@ -125,7 +125,7 @@ void init(void) {
 	glEnable(GL_LIGHT0);
 	SetLighting();
 
-	readMesh("complex.sms");
+	readMesh("cloth.sms");
 }
 
 int main(int argc, char **argv) {
