@@ -28,6 +28,7 @@ void readMesh(char *fName) {
 void showMesh(vertex *v, int n) {
 
 	glDisable(GL_LIGHTING);
+	glColor3f(1, 1, 1);
 	glBegin(GL_POINTS);
 	for (int i = 0; i < n; i++) {
 		glVertex3f(v[i].x, v[i].y, v[i].z);
@@ -125,7 +126,7 @@ void init(void) {
 	glEnable(GL_LIGHT0);
 	SetLighting();
 
-	readMesh("cloth.sms");
+	readMesh("complex.sms");
 }
 
 int main(int argc, char **argv) {
