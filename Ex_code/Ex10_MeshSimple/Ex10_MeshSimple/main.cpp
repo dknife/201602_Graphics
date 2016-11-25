@@ -13,20 +13,21 @@ struct vertex {
 int nVertex=0;
 vertex *verts;
 
-void readMesh(char *fName, vertex *v) {
+void readMesh(char *fName) {
 	FILE *f;
 	fopen_s(&f, fName, "r");
 	fscanf(f, "%d", &nVertex);
-	v = new vertex[nVertex];
+	verts = new vertex[nVertex];
 	for (int i = 0; i < nVertex; i++) {
-		fscanf(f, "%f", &v[i].x);
-		fscanf(f, "%f", &v[i].y);
-		fscanf(f, "%f", &v[i].z);
-		printf("%f %f %f\n", v[i].x, v[i].y, v[i].z);
+		fscanf(f, "%f", &verts[i].x);
+		fscanf(f, "%f", &verts[i].y);
+		fscanf(f, "%f", &verts[i].z);
 	}
 	
 }
 void showMesh(vertex *v, int n) {
+
+	glDisable(GL_LIGHTING);
 	glBegin(GL_POINTS);
 	for (int i = 0; i < n; i++) {
 		glVertex3f(v[i].x, v[i].y, v[i].z);
@@ -91,7 +92,7 @@ void display() {
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
 	static float angle = 0;
-	gluLookAt(2.0*cos(angle), 3, 2.0*sin(angle), 0, 0, 0, 0, 1, 0);
+	gluLookAt(200.0*cos(angle), 3, 200.0*sin(angle), 0, 0, 0, 0, 1, 0);
 	angle += 0.01;
 
 	SetLightPosition();
@@ -106,6 +107,7 @@ void display() {
 	glEnable(GL_LIGHTING);
 
 	// draw mesh
+	showMesh(verts, nVertex);
 
 	glDisable(GL_LIGHTING);
 
@@ -123,7 +125,7 @@ void init(void) {
 	glEnable(GL_LIGHT0);
 	SetLighting();
 
-	readMesh("simple.sms", verts);
+	readMesh("complex.sms");
 }
 
 int main(int argc, char **argv) {
