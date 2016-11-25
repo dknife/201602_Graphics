@@ -18,15 +18,31 @@ void CMesh::read(char *fname) {
 		fscanf(f, "%f", &verts[i].y);
 		fscanf(f, "%f", &verts[i].z);
 	}
+	fscanf(f, "%d", &nF);
+	tris = new triangle[nF];
+	for (int i = 0; i < nF; i++) {
+		fscanf(f, "%d", &tris[i].v0);
+		fscanf(f, "%d", &tris[i].v1);
+		fscanf(f, "%d", &tris[i].v2);
+	}
 
 }
 
 void CMesh::show() {
 	glDisable(GL_LIGHTING);
-	glColor3f(1, 1, 1);
-	glBegin(GL_POINTS);
-	for (int i = 0; i < nV; i++) {
-		glVertex3f(verts[i].x, verts[i].y, verts[i].z);
+	
+	for (int i = 0; i < nF; i++) {
+		glBegin(GL_LINE_LOOP);
+		 // current face = tris[i]
+		 // three vertices : tris[i].v0, v1, v2
+		int v0 = tris[i].v0;
+		int v1 = tris[i].v1;
+		int v2 = tris[i].v2;
+		glVertex3f(verts[v0].x, verts[v0].y, verts[v0].z);
+		glVertex3f(verts[v1].x, verts[v1].y, verts[v1].z);
+		glVertex3f(verts[v2].x, verts[v2].y, verts[v2].z);
+		
+		glEnd();
 	}
-	glEnd();
+	
 }

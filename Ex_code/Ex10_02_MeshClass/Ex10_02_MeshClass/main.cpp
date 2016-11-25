@@ -82,8 +82,8 @@ void display() {
 	glEnable(GL_LIGHTING);
 
 	// draw mesh
-	mesh1.show();
-	mesh2.show();
+	glColor3f(1, 1, 0);  mesh1.show();
+	glColor3f(0, 0, 1);  mesh2.show();
 
 	glDisable(GL_LIGHTING);
 
