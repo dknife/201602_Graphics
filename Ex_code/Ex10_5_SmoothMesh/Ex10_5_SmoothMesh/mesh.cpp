@@ -1,9 +1,15 @@
 #include "mesh.h"
 
-CMesh::CMesh() { }
+CMesh::CMesh() { 
+	verts = NULL;
+	tris = NULL;
+	norms = NULL;
+}
 
 CMesh::~CMesh() {
-	delete[] verts;
+	if (verts) delete[] verts;
+	if (tris) delete[] tris;
+	if (norms) delete[] norms;
 }
 
 void CMesh::computeNormals() {
@@ -54,7 +60,9 @@ void CMesh::read(char *fname) {
 	if (!f) { printf("file not found\n"); return; }
 
 	fscanf(f, "%d", &nV);
+	if (verts) delete[] verts;
 	verts = new vertex[nV];
+	if (norms) delete[] norms;
 	norms = new vertex[nV];
 	for (int i = 0; i < nV; i++) {
 		fscanf(f, "%f", &verts[i].x);
@@ -63,6 +71,7 @@ void CMesh::read(char *fname) {
 		norms[i].x = norms[i].y = norms[i].z = 0.0;
 	}
 	fscanf(f, "%d", &nF);
+	if (tris) delete[] tris;
 	tris = new triangle[nF];
 	for (int i = 0; i < nF; i++) {
 		fscanf(f, "%d", &tris[i].v0);
