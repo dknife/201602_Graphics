@@ -27,7 +27,7 @@ void myDisplay() {
 	gluPerspective(60, 1.0, 0.1, 100);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
-	gluLookAt(3, 3, 3, 0, 0, 0, 0, 1, 0);
+	gluLookAt(2,2,2, 0, 0, 0, 0, 1, 0);
 
 
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
