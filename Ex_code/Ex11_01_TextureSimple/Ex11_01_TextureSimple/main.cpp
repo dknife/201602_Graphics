@@ -1,17 +1,21 @@
 #include <Windows.h>
 #include <gl/GL.h>
 #include <gl/glut.h>
+#include <math.h>
 
-#define TEXSIZE 16
+#define TEXSIZE 32
 GLubyte myTex[TEXSIZE][TEXSIZE][3];
 
 void CreateTexture(void) {
 	for (int i = 0; i < TEXSIZE; i++) {
 		for (int j = 0; j < TEXSIZE; j++) {
 			for (int k = 0; k < 3; k++) {
-				myTex[i][j][0] = rand()%256;
-				myTex[i][j][1] = rand() % 256;
-				myTex[i][j][2] = rand() % 256;
+				float x = float(i) / (TEXSIZE - 1) - 0.5;
+				float y = float(j) / (TEXSIZE - 1) - 0.5;
+				GLubyte v = 255* (  (sin(10.0*x)*cos(10.0*y) + 1.0)/2.0);
+				myTex[i][j][0] = v;
+				myTex[i][j][1] = (v*v)%255;
+				myTex[i][j][2] = v;
 			}
 		}
 	}	
