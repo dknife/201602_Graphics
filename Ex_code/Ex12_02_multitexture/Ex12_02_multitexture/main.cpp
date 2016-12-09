@@ -7,39 +7,69 @@
 #include "STBImage.h"
 
 #define NTEXTURES 2
-// void glGenTextures(int n, GLuint *textures)
-// void glBindTexture(GLenum target /*GL_TEXTURE_2D*/, GLuint texture);
+
+
 GLuint tex[NTEXTURES];
 unsigned char *myTex=NULL;
 int texWidth, texHeight, bitPerPixel;
 
 
 void PrepareTextures(int n, GLuint *textures) {
-	glGenTextures(n, textures);
+	glGenTextures(n, tex);
 	glEnable(GL_TEXTURE_2D);	
 }
 
+
+GLuint LoadTexture(const char *filename) {
+	unsigned char *image;
+
+	int width, height, bPerPix;
+	image = stbi_load(filename, &width, &height, &bPerPix, 0);
+
+	GLuint tex;
+	glGenTextures(1, &tex);
+	glBindTexture(GL_TEXTURE_2D, tex);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB,
+		GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glEnable(GL_TEXTURE_2D);
+
+	return tex;
+}
+
+/*
 void SetTexture(int idx, char *fname) {
+	
 	if (myTex) delete[] myTex;
 	glBindTexture(GL_TEXTURE_2D, tex[idx]);
 	myTex = stbi_load(fname, &texWidth, &texHeight, &bitPerPixel, 0);
+	glActiveTexture(GL_TEXTURE0+idx);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, texWidth, texHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, myTex);
 	delete[] myTex; myTex = NULL;
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-}
+	glBindTexture(GL_TEXTURE_2D, tex[idx]);
+	glEnable(GL_TEXTURE_2D);
+}*/
 	
 void drawQuad(void) {
 	glBegin(GL_QUADS);
-	glTexCoord2f(0, 0);
+	glMultiTexCoord2f(GL_TEXTURE0, 0, 0);
+	glMultiTexCoord2f(GL_TEXTURE1, 0, 0);
 	glVertex3f(-1, 1, 0);
-	glTexCoord2f(0, 1);
+	glMultiTexCoord2f(GL_TEXTURE0, 0, 1);
+	glMultiTexCoord2f(GL_TEXTURE1, 0, 2);
 	glVertex3f(-1, -1, 0);
-	glTexCoord2f(1, 1);
+	glMultiTexCoord2f(GL_TEXTURE0, 1, 1);
+	glMultiTexCoord2f(GL_TEXTURE1, 2, 2);
 	glVertex3f(1, -1, 0);
-	glTexCoord2f(1, 0);
+	glMultiTexCoord2f(GL_TEXTURE0, 1, 0);
+	glMultiTexCoord2f(GL_TEXTURE1, 2, 0);
 	glVertex3f(1, 1, 0);
 	glEnd();
 }
@@ -64,9 +94,15 @@ void myDisplay() {
 
 void init() {
 	glClearColor(0.0, 0.0, 0.0, 1.0);
-	PrepareTextures(2, tex);
-	SetTexture(0, "dirty.jpg");
-	SetTexture(1, "cosmos.jpg");
+	
+	// stage 0
+	glActiveTexture(GL_TEXTURE0);
+	tex[0] = LoadTexture("dirty.jpg");
+
+	// stage 1
+	glActiveTexture(GL_TEXTURE1);
+	tex[1] = LoadTexture("robot.jpg");
+	
 	
 	glEnable(GL_DEPTH_TEST);
 }
