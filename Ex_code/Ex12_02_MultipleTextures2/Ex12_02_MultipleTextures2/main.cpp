@@ -31,13 +31,13 @@ void SetTexture(int idx, char *fname) {
 	
 void drawQuad(void) {
 	glBegin(GL_QUADS);
-	glTexCoord2f(0, 1);
-	glVertex3f(-1, 1, 0);
 	glTexCoord2f(0, 0);
+	glVertex3f(-1, 1, 0);
+	glTexCoord2f(0, 1);
 	glVertex3f(-1, -1, 0);
-	glTexCoord2f(1, 0);
-	glVertex3f(1, -1, 0);
 	glTexCoord2f(1, 1);
+	glVertex3f(1, -1, 0);
+	glTexCoord2f(1, 0);
 	glVertex3f(1, 1, 0);
 	glEnd();
 }
@@ -54,18 +54,17 @@ void myDisplay() {
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glColor3f(1, 1, 1);
 
-	glBindTexture(GL_TEXTURE_2D, tex[1]);
-	glPushMatrix();
-	glTranslatef(-1.0, 0, 0);
-	drawQuad();
-	glPopMatrix();
+	static float angle = 0;
+	glTranslatef(-NTEXTURES*(sin(angle)+1.0), 0, 0);
+	for (int i = 0; i < NTEXTURES; i++) {
+		glBindTexture(GL_TEXTURE_2D, tex[i]);
+		glPushMatrix();
+		glTranslatef(i*2, 0, 0);
+		drawQuad();
+		glPopMatrix();
+	}
+	angle += 0.01;
 	
-	glBindTexture(GL_TEXTURE_2D, tex[0]);
-	glPushMatrix();
-	glTranslatef( 1.0, 0, 0);
-	drawQuad();
-	glPopMatrix();
-
 	glutSwapBuffers();
 }
 
@@ -74,14 +73,14 @@ void init() {
 	PrepareTextures(10, tex);
 	SetTexture(0, "dirty.jpg");
 	SetTexture(1, "cosmos.jpg");
-	SetTexture(2, "dirty.jpg");
-	SetTexture(3, "cosmos.jpg");
-	SetTexture(4, "dirty.jpg");
-	SetTexture(5, "cosmos.jpg");
-	SetTexture(6, "dirty.jpg");
-	SetTexture(7, "cosmos.jpg");
-	SetTexture(8, "dirty.jpg");
-	SetTexture(9, "cosmos.jpg");
+	SetTexture(2, "wood.jpg");
+	SetTexture(3, "ice.jpg");
+	SetTexture(4, "woodchips.jpg");
+	SetTexture(5, "rock.jpg");
+	SetTexture(6, "soil.jpg");
+	SetTexture(7, "pororo.jpg");
+	SetTexture(8, "robot.jpg");
+	SetTexture(9, "dragon.jpg");
 	
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_LIGHTING);
