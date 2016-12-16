@@ -62,11 +62,25 @@ void myDisplay() {
 	glClear(GL_COLOR_BUFFER_BIT| GL_DEPTH_BUFFER_BIT);
 	glColor3f(1, 1, 1);
 
+	glPushMatrix();
+	glScalef(2, 0.5, 2);
+	glutSolidCube(1.0);
+	glPopMatrix();
+
+	glTranslatef(0,0.25,0);
+	glutSolidSphere(0.3, 30, 30);
+
+	glPushMatrix();
+	glScalef(0.2, 2.0, 0.2);
+	glutSolidCube(1.0);
+	glPopMatrix();
 
 
 	// 자동 텍스처 생성
 	glActiveTexture(GL_TEXTURE0);
-	glDisable(GL_TEXTURE_GEN_S); glDisable(GL_TEXTURE_GEN_T);
+	glEnable(GL_TEXTURE_GEN_S); glEnable(GL_TEXTURE_GEN_T);
+	glTexGenf(GL_S, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
+	glTexGenf(GL_T, GL_TEXTURE_GEN_MODE, GL_EYE_LINEAR);
 
 	glActiveTexture(GL_TEXTURE1);
 	glEnable(GL_TEXTURE_GEN_S); glEnable(GL_TEXTURE_GEN_T);
@@ -76,7 +90,7 @@ void myDisplay() {
 
 	static float angle = 0.0;
 	glRotatef(angle, 1, 1, 1); angle += 0.5;
-	glutSolidTeapot(1.0);
+	//glutSolidTeapot(1.0);
 	
 	glutSwapBuffers();
 }
@@ -91,7 +105,7 @@ void init() {
 
 	// stage 1
 	glActiveTexture(GL_TEXTURE1);
-	SetTexture(1, "spheremap.jpg");
+	SetTexture(1, "dirty.jpg");
 	
 	
 	glEnable(GL_LIGHTING);
